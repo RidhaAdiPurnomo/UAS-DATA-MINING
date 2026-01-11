@@ -1,0 +1,13 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Streamlit cache
+.streamlit/
+
+# Project Cache (PENTING: Jangan upload file pickle karena ukurannya bisa besar/binary)
+*.pkl
+
+# Virtual Environment
+venv/
+env/
