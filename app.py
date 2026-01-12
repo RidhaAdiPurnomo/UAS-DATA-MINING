@@ -11,7 +11,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # --- KONFIGURASI HALAMAN ---
-st.set_page_config(page_title="CariResep - IR System", page_icon="🥘", layout="wide")
+st.set_page_config(page_title="CariResep - Masakan Tradisional Indonesia", page_icon="🥘", layout="wide")
 
 # --- 1. SETUP NLTK ---
 @st.cache_resource
@@ -182,8 +182,8 @@ with st.sidebar:
                 st.error("Terjadi kesalahan pembacaan index.")
 
 # Main Content
-st.title("🥘 Smart Resep IR System")
-st.markdown("Sistem Pencarian Resep Masakan Tradisional Indonesia dengan **Vector Space Model**.")
+st.title("🥘 Cari Resep")
+st.markdown("Sistem Pencarian Resep Masakan Tradisional Indonesia.")
 
 if vectorizer:
     query = st.text_input("Mau masak apa? Masukkan bahan:", placeholder="Contoh: ayam santan pedas")
@@ -214,11 +214,16 @@ if vectorizer:
                 lines = content.splitlines()
                 title_text = lines[0].strip() if lines else "Tanpa Judul"
                 
+                body_text = " ".join(lines[1:]).replace("--", ". ")
+                snippet = body_text[:130].strip() + "..."
+
                 with st.container():
                     st.markdown("---")
                     c1, c2 = st.columns([5, 1])
                     with c1:
                         st.subheader(title_text)
+                        st.caption(snippet)
+
                         with st.expander("📄 Lihat Resep Lengkap"):
                             formatted_content = content.replace("--", "\n")
                             formatted_content = formatted_content.replace("Cara Membuat:", "\n\nCara Membuat:")
